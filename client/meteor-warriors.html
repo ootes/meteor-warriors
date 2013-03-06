@@ -8,5 +8,9 @@
 
 <template name="game">
   <h1>{{message}}</h1>
-  {{loginButtons}}	
+  {{#if currentUser}}
+  	<p>Hello user</p>
+  {{/if}}
+  	{{loginButtons}}	
+
 </template>
