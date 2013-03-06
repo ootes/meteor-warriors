@@ -33,8 +33,8 @@ Meteor.methods({
 });
 
 Meteor.call('getUserId', function(error, Id){
-
 	var user = Meteor.users.findOne({_id: Id});
+
 	var hasCharacter = function(){
 		return Characters.findOne({owner: Id});
 	};
@@ -49,7 +49,28 @@ Meteor.call('getUserId', function(error, Id){
 		});
 
 	}
-
 });
+
+
+var query = Characters.find();
+var handle = query.observeChanges({
+	changed: function(id, fields){
+		console.log(id, fields);
+  	}	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
