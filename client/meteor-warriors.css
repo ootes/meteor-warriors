@@ -24,7 +24,28 @@ div.login-display-name{
 =============================*/
 
 div#gamecanvas{
-	width: 2500px;
-	height: 2500px;
+	width: 1500px;
+	height: 1500px;
 	background:url(/images/bg.jpg) repeat;
+	padding-top:32px;
 }
+
+
+/*============================
+		character
+=============================*/
+
+div#character{
+	width: 30px;
+	height: 30px;
+	background-image: url(/images/warrior-sprite.png);
+
+}
+
+
+
+
+
+
+
+
