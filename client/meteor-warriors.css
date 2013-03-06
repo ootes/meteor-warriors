@@ -8,6 +8,7 @@ body{
 }
 
 div#login-buttons{
+	position: fixed;
 	width:100%;
 	text-align: center;
 	background: rgba(0,0,0,0.8);
