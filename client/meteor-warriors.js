@@ -1,5 +1,5 @@
 if (Meteor.isClient) {
-  Template.game.greeting = function () {
+  Template.game.message = function () {
     return "Welcome to meteor-warriors.";
   };
 }
