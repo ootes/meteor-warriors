@@ -7,6 +7,5 @@ autopublish
 insecure
 preserve-inputs
 jquery
-bootstrap
 accounts-ui
 accounts-facebook
