@@ -8,9 +8,12 @@
 
 <template name="game">
   <h1>{{message}}</h1>
-  {{#if currentUser}}
-  	<p>Hello user</p>
-  {{/if}}
   	{{loginButtons}}	
+
+  {{#if currentUser}}
+  	<div id="gamecanvas">
+  		game
+  	</div>
+  {{/if}}
 
 </template>
