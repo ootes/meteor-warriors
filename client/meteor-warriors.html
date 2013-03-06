@@ -10,11 +10,19 @@
   	{{loginButtons}}	
 
   {{#if currentUser}}
-  	<div id="gamecanvas">
-  		<div id="character">
-  			
-  		</div>
-  	</div>
+            {{> gamecanvas}}
   {{/if}}
 
+</template>
+
+<template name="gamecanvas">
+          <div id="gamecanvas">
+
+            {{#each characters}}
+            <div id="character" data-y='{{posY}}' data-x='{{posX}}'>
+              {{name}}
+            </div>
+            {{/each}}
+
+          </div>
 </template>
