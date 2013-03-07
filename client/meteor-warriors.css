@@ -67,6 +67,64 @@ div#gamecanvas{
 }
 
 
+/*============================
+		Messages
+=============================*/
 
+form.entry{
+	width:100%;
+	height: 30px;
+	padding-top:5px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	background: rgba(0,0,0,0.8);
+}
+form.entry > input[type=text]{
+	width:75%;
+	border-radius:3px;
+}
+form.entry > input[type=submit]{
+	width:20%;
+	padding:5px 0;
+	height: 26px;
+	-webkit-appearance:none;
+	background-color: #da4f49;
+	background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+	background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	border:1px solid;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	color: white;
+}
+
+div.message{
+	position: absolute;
+	top:-40px;
+	padding:3px 6px;
+	background:white;
+	border-radius:5px;
+	font-family: arial, Helvetica, sans-serif;
+	font-size:10px;
+	white-space: nowrap;
+}
+
+div.message:before
+{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 8px;
+	top: 17px;
+	border: 3px solid;
+	border-color: white transparent transparent white;
+}
 
 
