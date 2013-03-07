@@ -13,24 +13,24 @@ $(document).on('keydown', function(e){
 	if (!move) return;
 	move = false;
 
-	var currentChar = Characters.findOne({owner: Session.get('currentUserId')});
+	var currentChar = Characters.findOne({owner: Meteor.userId()});
 
 	if (e.keyCode == 37) { 
 		// move left		
-		Characters.update({owner: Session.get('currentUserId')}, {$inc: {posX: -30}, $set: {face: 'left'}} );
+		Characters.update({owner: Meteor.userId()}, {$inc: {posX: -30}, $set: {face: 'left'}} );
 	}
 	if(e.keyCode == 38) {
 		// move up
-		Characters.update({owner: Session.get('currentUserId')}, {$inc: {posY : -30}, $set: {face: 'up'}} );
+		Characters.update({owner: Meteor.userId()}, {$inc: {posY : -30}, $set: {face: 'up'}} );
 	}
 	if(e.keyCode == 39) {
 		// move right
-		console.log(Session.get('currentUserId'));
-		Characters.update({owner: Session.get('currentUserId')}, {$inc: {posX : 30}, $set: {face: 'right'}} );
+		console.log(Meteor.userId());
+		Characters.update({owner: Meteor.userId()}, {$inc: {posX : 30}, $set: {face: 'right'}} );
 	}
 	if(e.keyCode == 40) {
 		// down
-		Characters.update({owner: Session.get('currentUserId')}, {$inc: {posY : 30}, $set: {face: 'down'}} );
+		Characters.update({owner: Meteor.userId()}, {$inc: {posY : 30}, $set: {face: 'down'}} );
 	}
 });
 

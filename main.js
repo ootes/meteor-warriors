@@ -1,9 +1,7 @@
-
-
 // add table to the database also for the client
 var Characters = new Meteor.Collection("characters");
 
-// insrcure package is turned off  so we need to whitelist all permissions
+// insecure package is turned off  so we need to whitelist all permissions
 Characters.allow({
 	// the user can only insert if there is a value owner wich match his userid
 	insert: function( userid, doc ){
@@ -19,13 +17,11 @@ Characters.allow({
 
 	// only can remove his own documents
 	remove: function(userid, docs, fields, modifier){
-		return true;
 		return _.all(docs, function(doc){
 			return doc.owner === userid;
 		});
 	}
 });
-
 
 
 Meteor.methods({
@@ -40,9 +36,6 @@ Meteor.methods({
 
 Meteor.call('getUserId', function(error, Id){
 	if(Id){
-		// set userId to sesssion
-		Session.set("currentUserId", Id);
-
 		var user = Meteor.users.findOne({_id: Id});
 
 		var hasCharacter = function(){
