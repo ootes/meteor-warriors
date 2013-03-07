@@ -71,7 +71,7 @@ var handle = query.observeChanges({
 		var windowWidth = $(window).width() /2;
 		var windowHeight = $(window).height() /2;
 
-		$(window).scrollTo( {top:user.posY-100, left: user.posX-100}, 100 );
+		$(window).scrollTo( {top:user.posY-100, left: user.posX-100}, 50 );
 
 
 
