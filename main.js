@@ -1,4 +1,5 @@
 
+
 // add table to the database also for the client
 var Characters = new Meteor.Collection("characters");
 
@@ -26,28 +27,39 @@ Characters.allow({
 });
 
 
+
 Meteor.methods({
 	getUserId: function () {
- 		return this.userId;
+ 		if(this.userId){
+ 			return this.userId;
+ 		}else{
+ 			return false;
+ 		}
 	}
 });
 
 Meteor.call('getUserId', function(error, Id){
-	var user = Meteor.users.findOne({_id: Id});
+	if(Id){
+		// set userId to sesssion
+		Session.set("currentUserId", Id);
 
-	var hasCharacter = function(){
-		return Characters.findOne({owner: Id});
-	};
+		var user = Meteor.users.findOne({_id: Id});
 
-	if(!hasCharacter()){
+		var hasCharacter = function(){
+			return Characters.findOne({owner: Id});
+		};
 
-		Characters.insert({
-			name: user.profile.name,
-			owner: user._id,
-			posX: 10,
-			posY: 10
-		});
+		if(!hasCharacter()){
 
+			Characters.insert({
+				name: user.profile.name,
+				owner: user._id,
+				posX: 30,
+				posY: 30,
+				face: 'down'
+			});
+
+		}
 	}
 });
 
@@ -55,7 +67,9 @@ Meteor.call('getUserId', function(error, Id){
 var query = Characters.find();
 var handle = query.observeChanges({
 	changed: function(id, fields){
+
 		console.log(id, fields);
+	
   	}	
 });
 

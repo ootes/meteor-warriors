@@ -1,3 +1,4 @@
+
 <head>
   <title>meteor-warriors</title>
 </head>
@@ -19,8 +20,8 @@
           <div id="gamecanvas">
 
             {{#each characters}}
-            <div id="character" data-y='{{posY}}' data-x='{{posX}}'>
-              {{name}}
+            <div class="character face-{{face}}" data-y='{{posY}}' data-x='{{posX}}' id='{{owner}}' style="left:{{posX}}px; top:{{posY}}px">
+              <span class='nametag'>{{name}}</span>
             </div>
             {{/each}}
 
