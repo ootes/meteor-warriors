@@ -7,6 +7,9 @@ body{
 	padding: 0;
 	overflow: hidden;
 	display:block;
+	height: 500px;
+	background: rgba(0,0,0,0.8) url(/images/logo.png) no-repeat center center;
+	background-size: 70% auto;
 }
 
 div#login-buttons{
