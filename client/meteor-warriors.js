@@ -1,3 +1,8 @@
+/*############################################
+	Zorgt ervoor dat de game geïnitieerd wordt 
+	en als je geen character hebt wordt deze 
+	aangemaakt.
+#############################################*/
 Template.gamecanvas.init = function(){
 
 	console.log("game init")
@@ -23,11 +28,20 @@ Template.gamecanvas.init = function(){
 	}
 }
 
+
+/*############################################
+	Geeft alle objecten terug van de tabel 
+	characters in de MongoDB
+#############################################*/
 Template.gamecanvas.characters = function(){
 	return Characters.find();
 }
 
 
+
+/*############################################
+	Centreert de canvas op basis van je character
+#############################################*/
 Template.gamecanvas.centerCanvas = function(ownerid){
 
 	// window width and height
@@ -40,7 +54,13 @@ Template.gamecanvas.centerCanvas = function(ownerid){
 
 }
 
+/*############################################
+	Verplaatst je character, kijkt ook of er 
+	iemand staat en of je nog binnen de canvas zit,
+	centreert je canvas als je mag bewegen
+#############################################*/
 Template.gamecanvas.moveCharacter = function(offset, facedirection){
+	
 	var currentChar = Characters.findOne({owner: Meteor.userId()});
 
 	var posOccupied = Characters.findOne({posX: currentChar.posX+offset[0], posY: currentChar.posY+offset[1]});
@@ -58,7 +78,7 @@ Template.gamecanvas.moveCharacter = function(offset, facedirection){
 		Characters.update({owner: currentChar.owner}, {$set: {face: facedirection}} );
 
 		if(posOccupied){
-			Template.gamecanvas.sayMessage("Move bitch, get out my way!");
+			Template.gamecanvas.sayMessage("Move bitch, get out the way!");
 		}else{
 			Template.gamecanvas.sayMessage("It looks like i can't go further");
 		}
@@ -72,14 +92,27 @@ Template.gamecanvas.moveCharacter = function(offset, facedirection){
 };
 
 
+/*############################################
+	Zorg dat er een veldje message bij je character
+	erbij komt verdwijnt standaard na 3 sec
+#############################################*/
 Template.gamecanvas.sayMessage = function(message){
 	Characters.update({owner: Meteor.userId()}, {$addToSet: {message: message }});
+	
 	$('input[type=text]').val('');
-	Meteor.setTimeout(function(){
+	
+	Meteor.clearTimeout(msgtimer);
+	
+	var msgtimer = Meteor.setTimeout(function(){
 		Characters.update({owner: Meteor.userId()}, {$unset: {message: ''}});
 	}, 3000);
 }
 
+
+/*############################################
+	Wanneer het formulier verzonden wordt geeft 
+	het de inhoud van de input mee aan de sayMessage method
+#############################################*/
 Template.form.events({
 	'submit form':function(e){
 		e.preventDefault();
@@ -93,10 +126,17 @@ Template.form.events({
 });
 
 
+
+/*############################################
+	Kijkt naar keydown event op je document, 
+	veplaatst dan je character met de 
+	movecharacter method
+#############################################*/
 Template.gamecanvas.move = true;
 
 $(document).on('keydown', function(e){
 	if (!Template.gamecanvas.move) return;
+	
 	Template.gamecanvas.move = false;
 
 	if (e.keyCode == 37) { 	
@@ -121,6 +161,17 @@ $(document).on('keyup', function(e){
 });
 
 
+/*############################################
+	Voorkom alle touchevents op mobiel
+#############################################*/
+$(window).on('touchmove', function (ev) { 
+  ev.preventDefault();
+});
+
+
+/*############################################
+	Voeg touch events toe om je character te bewegen.
+#############################################*/
 Template.gamecanvas.swipeme = function () {
 	Meteor.defer(function() {
 	    var $sw = $('#gamecanvas');
@@ -146,6 +197,3 @@ Template.gamecanvas.swipeme = function () {
 	});
 };
 
-$(window).on('touchmove', function (ev) { 
-  ev.preventDefault();
-});

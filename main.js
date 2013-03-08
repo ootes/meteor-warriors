@@ -18,7 +18,6 @@ Characters.allow({
 
 	// only can remove his own documents
 	remove: function(userid, docs, fields, modifier){
-		return true;
 		return _.all(docs, function(doc){
 			return doc.owner === userid;
 		});
