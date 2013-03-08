@@ -12,11 +12,11 @@
 <template name="game">	
   	{{loginButtons}}	
 
-  {{#if currentUser}}
-            {{> gamecanvas}}
-  {{/if}}
+      {{#if currentUser}}
+                {{> gamecanvas}}
+        {{> form}}
+      {{/if}}
     
-    {{> form}}
 </template>
 
 <template name="gamecanvas">

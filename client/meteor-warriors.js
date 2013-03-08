@@ -2,6 +2,8 @@ Template.gamecanvas.characters = function(){
 	return Characters.find();
 }
 
+
+
 var move = true;
 
 
@@ -22,7 +24,15 @@ var moveCharacter = function(offset, facedirection){
 		return;
 	}
 	// else move character
-	Characters.update({owner: currentChar.owner}, {$inc: {posX: offset[0], posY: offset[1]}, $set: {face: facedirection}} );	
+	Characters.update({owner: currentChar.owner}, {$inc: {posX: offset[0], posY: offset[1]}, $set: {face: facedirection}} );
+
+	// window width and height
+	var windowWidth = $(window).width()/2;
+	var windowHeight = $(window).height()/2;
+
+	// offset from chat
+	var offset = $("#"+currentChar.owner).offset();
+	$(window).scrollTo( {top:offset.top-windowHeight, left: offset.left-windowWidth}, 100 );	
 };
 
 
@@ -45,22 +55,6 @@ $(document).on('keydown', function(e){
 		// down
 		moveCharacter([0, 30], "down");
 	}
-
-
-	var user = Characters.findOne({owner: Meteor.userId()});
-	console.log(user);
-
-	var windowWidth = $(window).width()/2;
-	var windowHeight = $(window).height()/2;
-
-	
-
-	var offset = $("#"+user.owner).offset();
-
-	$(window).scrollTo( {top:offset.top-windowHeight, left: offset.left-windowWidth}, 100 );
-
-
-
 });
 
 $(document).on('keyup', function(e){
