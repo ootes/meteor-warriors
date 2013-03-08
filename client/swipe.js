@@ -18,3 +18,8 @@ $(document).on('swipeleft', function(event){
 	// 	moveCharacter([0, 30], "down");
 	// }
 });
+
+
+	$(window).on('touchmove', function (ev) { 
+	  ev.preventDefault();
+	});

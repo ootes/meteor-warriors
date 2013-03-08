@@ -10,13 +10,15 @@
 </body>
 
 <template name="game">	
+
   	{{loginButtons}}	
 
       {{#if currentUser}}
                 {{> gamecanvas}}
         {{> form}}
       {{/if}}
-    
+ 
+
 </template>
 
 <template name="gamecanvas">
