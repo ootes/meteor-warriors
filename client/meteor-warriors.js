@@ -1,18 +1,49 @@
+Template.gamecanvas.init = function(){
+
+
+	console.log("game init")
+
+	Meteor.call('getUserId', function(error, Id){
+		if(Id){
+			var user = Meteor.users.findOne({_id: Id});
+
+			var hasCharacter = function(){
+				return Characters.findOne({owner: Id});
+			};
+
+			if(!hasCharacter()){
+
+				Characters.insert({
+					name: user.profile.name,
+					owner: user._id,
+					posX: 30,
+					posY: 30,
+					face: 'down'
+				});
+
+			}
+		}
+	});
+}
+
 Template.gamecanvas.characters = function(){
 	return Characters.find();
 }
 
 
 
+
 var move = true;
 
 
-var moveCharacter = function(offset, facedirection){
+Template.gamecanvas.moveCharacter = function(offset, facedirection){
 	var currentChar = Characters.findOne({owner: Meteor.userId()});
+
+	var posOccupied = Characters.findOne({posX: currentChar.posX+offset[0], posY: currentChar.posY+offset[1]});
 
 	// check if someone is there
 	if(
-		Characters.findOne({posX: currentChar.posX+offset[0], posY: currentChar.posY+offset[1]}) || 
+		posOccupied || 
 		currentChar.posX <= 0 && facedirection == "left" ||  
 		currentChar.posX >=1500 && facedirection == "right" ||  
 		currentChar.posY <= 0 && facedirection == "up" || 
@@ -21,6 +52,12 @@ var moveCharacter = function(offset, facedirection){
 	) 
 	{
 		Characters.update({owner: currentChar.owner}, {$set: {face: facedirection}} );
+
+		if(posOccupied){
+			Template.gamecanvas.sayMessage("Move bitch, get out my way!");
+		}else{
+			Template.gamecanvas.sayMessage("It looks like i can't go further");
+		}
 		return;
 	}
 	// else move character
@@ -41,19 +78,19 @@ $(document).on('keydown', function(e){
 	move = false;
 
 	if (e.keyCode == 37) { 	
-		moveCharacter([-30, 0], "left");
+		Template.gamecanvas.moveCharacter([-30, 0], "left");
 	}
 	if(e.keyCode == 38) {
 		// move up
-		moveCharacter([0, -30], "up");
+		Template.gamecanvas.moveCharacter([0, -30], "up");
 	}
 	if(e.keyCode == 39) {
 		// move right
-		moveCharacter([30, 0], "right");
+		Template.gamecanvas.moveCharacter([30, 0], "right");
 	}
 	if(e.keyCode == 40) {
 		// down
-		moveCharacter([0, 30], "down");
+		Template.gamecanvas.moveCharacter([0, 30], "down");
 	}
 });
 
