@@ -30,7 +30,13 @@ var query = Characters.find();
 var handle = query.observeChanges({
 	changed: function(id, fields){
 
-		console.log(id, fields);
+		var user = Characters.findOne({_id:id});
+		
+		if(fields.message){
+			console.log(user.name+": "+fields.message[0]);
+		}
+		
+		
 
   	}	
 });

@@ -5,26 +5,19 @@
 #############################################*/
 Template.gamecanvas.init = function(){
 
-	console.log("game init")
+	var hasCharacter = function(){
+		return Characters.findOne({owner: user._id});
+	};
 
-	if(Meteor.userId()){
-		var user = Meteor.users.findOne({_id: Meteor.userId()});
-
-		var hasCharacter = function(){
-			return Characters.findOne({owner: user._id});
-		};
-
-		if(!hasCharacter()){
-
+	if(!hasCharacter){
 			Characters.insert({
 				name: user.profile.name,
-				owner: user._id,
+				owner: Meteor.userId(),
 				posX: 30,
 				posY: 30,
 				face: 'down'
 			});
 
-		}
 	}
 }
 
@@ -97,6 +90,7 @@ Template.gamecanvas.moveCharacter = function(offset, facedirection){
 	erbij komt verdwijnt standaard na 3 sec
 #############################################*/
 Template.gamecanvas.sayMessage = function(message){
+
 	Characters.update({owner: Meteor.userId()}, {$addToSet: {message: message }});
 	
 	$('input[type=text]').val('');
@@ -119,7 +113,10 @@ Template.form.events({
 
 		if ($('input').val() === "") return;
 		
+		var user = Characters.findOne({owner: Meteor.userId()});
+		
 		Template.gamecanvas.sayMessage($('input[type=text]').val());
+		
 		Template.gamecanvas.centerCanvas(Meteor.userId());
 		
 	}
