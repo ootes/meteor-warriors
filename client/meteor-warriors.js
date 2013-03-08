@@ -8,8 +8,12 @@ Template.gamecanvas.init = function(){
 	var hasCharacter = function(){
 		return Characters.findOne({owner: user._id});
 	};
+	
+	var user = Meteor.users.findOne({_id: Meteor.userId()}); 
+	
 
-	if(!hasCharacter){
+	if(!hasCharacter()){
+	
 			Characters.insert({
 				name: user.profile.name,
 				owner: Meteor.userId(),
@@ -31,7 +35,6 @@ Template.gamecanvas.characters = function(){
 }
 
 
-
 /*############################################
 	Centreert de canvas op basis van je character
 #############################################*/
@@ -46,6 +49,7 @@ Template.gamecanvas.centerCanvas = function(ownerid){
 	$(window).scrollTo( {top:offset.top-windowHeight, left: offset.left-windowWidth}, 100 );
 
 }
+
 
 /*############################################
 	Verplaatst je character, kijkt ook of er 
@@ -82,7 +86,7 @@ Template.gamecanvas.moveCharacter = function(offset, facedirection){
 
 	Template.gamecanvas.centerCanvas(currentChar.owner);
 		
-};
+}
 
 
 /*############################################
@@ -100,7 +104,7 @@ Template.gamecanvas.sayMessage = function(message){
 	var msgtimer = Meteor.setTimeout(function(){
 		Characters.update({owner: Meteor.userId()}, {$unset: {message: ''}});
 	}, 3000);
-}
+};
 
 
 /*############################################
@@ -121,7 +125,6 @@ Template.form.events({
 		
 	}
 });
-
 
 
 /*############################################
