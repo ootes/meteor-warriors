@@ -10,6 +10,7 @@ Characters.allow({
 
 	// the user can only update the documents wich match his userid
 	update: function( userid, docs, fields, modifier){
+
 		return _.all(docs, function(doc){
 			return doc.owner === userid;	
 		});
@@ -65,17 +66,6 @@ var handle = query.observeChanges({
 
 		console.log(id, fields);
 
-		var user = Characters.findOne({_id: id});
-		console.log(user);
-
-		var windowWidth = $(window).width() /2;
-		var windowHeight = $(window).height() /2;
-
-		$(window).scrollTo( {top:user.posY-100, left: user.posX-100}, 50 );
-
-
-
-	
   	}	
 });
 
