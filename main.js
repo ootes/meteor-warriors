@@ -26,19 +26,7 @@ Characters.allow({
 });
 
 
-
-Meteor.methods({
-	getUserId: function () {
- 		if(this.userId){
- 			return this.userId;
- 		}else{
- 			return false;
- 		}
-	}
-});
-
-
-
+// observe changes on characters
 var query = Characters.find();
 var handle = query.observeChanges({
 	changed: function(id, fields){
