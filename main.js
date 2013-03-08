@@ -37,27 +37,6 @@ Meteor.methods({
 	}
 });
 
-Meteor.call('getUserId', function(error, Id){
-	if(Id){
-		var user = Meteor.users.findOne({_id: Id});
-
-		var hasCharacter = function(){
-			return Characters.findOne({owner: Id});
-		};
-
-		if(!hasCharacter()){
-
-			Characters.insert({
-				name: user.profile.name,
-				owner: user._id,
-				posX: 30,
-				posY: 30,
-				face: 'down'
-			});
-
-		}
-	}
-});
 
 
 var query = Characters.find();
